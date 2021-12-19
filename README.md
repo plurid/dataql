@@ -148,7 +148,7 @@ const main = async () => {
         application,
         {
             signs: `
-                getProduct(InputGetProduct): ResponseGetProduct
+                getProduct(InputGetProduct): ResponseGetProduct | void
                 setProduct(InputSetProduct): ResponseGetProduct
 
                 Product {
@@ -159,7 +159,7 @@ const main = async () => {
 
                 InputGetProduct = From<
                     Product,
-                    id | name
+                    id? | name?
                 >
 
                 InputSetProduct = From<
@@ -171,14 +171,23 @@ const main = async () => {
             `,
             resolvers: {
                 getProduct: async (
-                    input: { id: string; name: string; },
+                    input: { id?: string; name?: string; },
                     context: DataQLContext,
                 ) => {
-                    return {
-                        id: 'one',
-                        name: 'product',
-                        price: 100,
-                    };
+                    const {
+                        id,
+                        name,
+                    } = input;
+
+                    if (id === 'one' || name === 'product') {
+                        return {
+                            id: 'one',
+                            name: 'product',
+                            price: 100,
+                        };
+                    }
+
+                    return;
                 },
                 setProduct: async (
                     input: { name?: string; price?: string; },
