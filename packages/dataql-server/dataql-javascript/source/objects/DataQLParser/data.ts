@@ -43,4 +43,40 @@ export const defaultDataQLTypes = `
         [P in Exclude<keyof T, K>]: T[P]
     }
 `;
+
+
+export enum TOKENS {
+    LEFT_PARANTHESIS, RIGHT_PARANTHESIS,
+    LEFT_BRACKET, RIGHT_BRACKET,
+    LEFT_BRACE, RIGHT_BRACE,
+    LEFT_ANGLE, RIGHT_ANGLE,
+    COMMA, DOT, COLON, QUESTION_MARK,
+    AND, OR, EQUAL,
+}
+
+export const reservedKeywords = [
+    'in',
+    'keyof',
+    'never',
+    'extends',
+    'undefined',
+];
+
+export const singleSigns = {
+    '(': 'LEFT_PARANTHESIS',
+    ')': 'RIGHT_PARANTHESIS',
+    '[': 'LEFT_BRACKET',
+    ']': 'RIGHT_BRACKET',
+    '{': 'LEFT_BRACE',
+    '}': 'RIGHT_BRACE',
+    '<': 'LEFT_ANGLE',
+    '>': 'RIGHT_ANGLE',
+    ',': 'COMMA',
+    '.': 'DOT',
+    ':': 'COLON',
+    '?': 'QUESTION_MARK',
+    '&': 'AND',
+    '|': 'OR',
+    '=': 'EQUAL',
+};
 // #endregion module
