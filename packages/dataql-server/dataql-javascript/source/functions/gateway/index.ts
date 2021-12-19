@@ -15,6 +15,8 @@
         DataQLGatewayOptions,
         DataQLGatewayServices,
     } from '~data/interfaces';
+
+    import middleware from '~functions/middleware';
     // #endregion external
 // #endregion imports
 
@@ -41,6 +43,8 @@ const generateGateway = async (
     const gatewayPath = options.path || defaultDataQLPath;
     const servicesMap = await composeServicesMap(options.services);
 
+    await middleware(application);
+
     application.post(gatewayPath, async (request, response) => {
         // based on request determine which service(s) to call
         // compose result from all the called services
@@ -48,6 +52,9 @@ const generateGateway = async (
 
         response.json(result);
     });
+
+
+    return true;
 }
 // #endregion module
 

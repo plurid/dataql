@@ -14,6 +14,8 @@
     import {
         DataQLServiceOptions,
     } from '~data/interfaces';
+
+    import middleware from '~functions/middleware';
     // #endregion external
 // #endregion imports
 
@@ -26,12 +28,17 @@ const generateService = async (
 ) => {
     const servicePath = options.path || defaultDataQLPath;
 
+    await middleware(application);
+
     application.post(servicePath, async (request, response) => {
         // based on request determine which resolver to call
         const result = {};
 
         response.json(result);
     });
+
+
+    return true;
 }
 // #endregion module
 
