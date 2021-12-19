@@ -4,9 +4,11 @@ export interface DataQLGatewayService {
     address: string;
 }
 
+export type DataQLGatewayServices = (string | DataQLGatewayService)[];
+
 export interface DataQLGatewayOptions {
     path?: string;
-    services: (string | DataQLGatewayService)[];
+    services: DataQLGatewayServices;
 }
 
 
