@@ -20,7 +20,7 @@
 
 
 
-`dataql` is a query language and service based on `datasign` and inspired by `graphql`.
+`dataql` is a query language and service based on `datasign` and inspired by `GraphQL` and `TypeScript`.
 
 
 
