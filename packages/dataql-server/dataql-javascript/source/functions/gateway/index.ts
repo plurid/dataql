@@ -14,6 +14,7 @@
     import {
         DataQLGatewayOptions,
         DataQLGatewayServices,
+        DataQLGatewayService,
     } from '~data/interfaces';
 
     import middleware from '~functions/middleware';
@@ -23,13 +24,27 @@
 
 
 // #region module
+const getServiceMap = async (
+    service: string | DataQLGatewayService,
+) => {
+    const serviceAddress = typeof service === 'string'
+        ? service
+        : service.address;
+
+    // call serviceAddress and get the map
+
+    return {};
+}
+
+
 const composeServicesMap = async (
     services: DataQLGatewayServices,
 ) => {
-    const servicesMap: string[] = [];
+    const servicesMap: any[] = [];
 
     for (const service of services) {
-
+        const serviceMap = await getServiceMap(service);
+        servicesMap.push(serviceMap);
     }
 
     return servicesMap;
