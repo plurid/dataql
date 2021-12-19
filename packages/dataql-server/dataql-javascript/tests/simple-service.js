@@ -7,35 +7,33 @@ const {
 
 
 const main = async () => {
-    const app = express();
+    const application = express();
 
     await generateService(
-        app,
+        application,
         {
-            pieces: [
-                `
-                    getProduct(InputGetProduct): ResponseGetProduct
-                    setProduct(InputSetProduct): ResponseGetProduct
+            signs: `
+                getProduct(InputGetProduct): ResponseGetProduct
+                setProduct(InputSetProduct): ResponseGetProduct
 
-                    Product {
-                        id: string
-                        name: string
-                        price: number
-                    }
+                Product {
+                    id: string
+                    name: string
+                    price: number
+                }
 
-                    InputGetProduct = From<
-                        Product,
-                        id | name
-                    >
+                InputGetProduct = From<
+                    Product,
+                    id | name
+                >
 
-                    InputSetProduct = From<
-                        Product,
-                        name | price
-                    >
+                InputSetProduct = From<
+                    Product,
+                    name | price
+                >
 
-                    ResponseGetProduct = Product
-                `,
-            ],
+                ResponseGetProduct = Product
+            `,
             resolvers: {
                 getProduct: async (
                     input,
@@ -57,7 +55,7 @@ const main = async () => {
                         price: 100,
                     };
                 },
-            }
+            },
         },
     );
 
