@@ -32,7 +32,10 @@ export default {
     external: [
         '@plurid/deon',
         '@plurid/plurid-functions',
-        'cross-fetch',
+        'body-parser',
+        'cookie-parser',
+        'cors',
+        'express',
         'isomorphic-ws',
         'ws',
     ],
