@@ -43,7 +43,10 @@ const generateGateway = async (
     const gatewayPath = options.path || defaultDataQLPath;
     const servicesMap = await composeServicesMap(options.services);
 
-    await middleware(application);
+    await middleware(
+        application,
+        options.middleware,
+    );
 
     application.post(gatewayPath, async (request, response) => {
         // based on request determine which service(s) to call

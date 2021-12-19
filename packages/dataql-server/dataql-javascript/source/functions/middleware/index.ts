@@ -14,6 +14,10 @@
 
     // #region external
     import {
+        DataQLMiddleware,
+    } from '~data/interfaces';
+
+    import {
         PAYLOAD_LIMIT,
     } from '~data/constants';
     // #endregion external
@@ -24,7 +28,13 @@
 // #region module
 const middleware = async (
     application: Application,
+    customMiddleware: DataQLMiddleware | undefined,
 ) => {
+    if (customMiddleware) {
+        await customMiddleware(application);
+        return;
+    }
+
     application.use(
         cookieParser(),
         jsonParser({

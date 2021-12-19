@@ -28,7 +28,10 @@ const generateService = async (
 ) => {
     const servicePath = options.path || defaultDataQLPath;
 
-    await middleware(application);
+    await middleware(
+        application,
+        options.middleware,
+    );
 
     application.post(servicePath, async (request, response) => {
         // based on request determine which resolver to call

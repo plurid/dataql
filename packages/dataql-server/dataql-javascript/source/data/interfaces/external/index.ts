@@ -1,4 +1,19 @@
-// #region exports
+// #region imports
+    // #region libraries
+    import {
+        Application,
+    } from 'express';
+    // #endregion libraries
+// #endregion imports
+
+
+
+// #region module
+export type DataQLMiddleware = (
+    application: Application,
+) => Promise<void>;
+
+
 export interface DataQLGatewayService {
     name: string;
     address: string;
@@ -9,6 +24,7 @@ export type DataQLGatewayServices = (string | DataQLGatewayService)[];
 export interface DataQLGatewayOptions {
     path?: string;
     services: DataQLGatewayServices;
+    middleware?: DataQLMiddleware;
 }
 
 
@@ -22,5 +38,6 @@ export interface DataQLServiceOptions {
     path?: string;
     pieces: string[];
     resolvers: DataQLResolver[];
+    middleware?: DataQLMiddleware;
 }
-// #endregion exports
+// #endregion module
