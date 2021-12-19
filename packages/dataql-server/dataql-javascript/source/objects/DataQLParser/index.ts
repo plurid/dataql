@@ -14,6 +14,8 @@
 // #region module
 class DataQLParser {
     private value;
+    private tokens: Token[] = [];
+    private result = {};
 
 
     constructor(
@@ -25,7 +27,6 @@ class DataQLParser {
 
     private parseTokens() {
         const characters = this.value.split('');
-        const tokens: Token[] = [];
 
         for (const character of characters) {
             const singleSign = singleSigns[character];
@@ -34,7 +35,7 @@ class DataQLParser {
                 const token: Token = {
                     type: singleSign,
                 };
-                tokens.push(token);
+                this.tokens.push(token);
                 continue;
             }
 
@@ -48,17 +49,33 @@ class DataQLParser {
                         type: TOKENS.IDENTIFIER,
                         value: character,
                     };
-                    tokens.push(token);
+                    this.tokens.push(token);
                     break;
             }
         }
+    }
 
-        return tokens;
+    private parseExpressions() {
+        for (const token of this.tokens) {
+            switch (token.type) {
+                case TOKENS.IDENTIFIER:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private computeResult() {
     }
 
 
     public parse() {
-        const tokens = this.parseTokens();
+        this.parseTokens();
+        this.parseExpressions();
+        this.computeResult();
+
+        return this.result;
     }
 }
 // #endregion module
