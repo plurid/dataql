@@ -18,7 +18,7 @@ export type DataQLMiddleware = (
 export type DataQLContext = (
     request: Request,
     response: Response,
-) => Promise<void>;
+) => Promise<any>;
 
 
 export interface DataQLServerBase {

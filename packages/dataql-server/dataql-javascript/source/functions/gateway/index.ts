@@ -64,11 +64,17 @@ const generateGateway = async (
     );
 
     application.post(gatewayPath, async (request, response) => {
-        // based on request determine which service(s) to call
-        // compose result from all the called services
-        const result = {};
+        try {
+            // based on request determine which service(s) to call
+            // compose result from all the called services
+            const result = {};
 
-        response.json(result);
+            response.json(result);
+        } catch (error) {
+            response.json({
+                status: false,
+            });
+        }
     });
 
 
