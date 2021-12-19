@@ -53,6 +53,7 @@ ResponseSomething {
 }
 
 
+
 // types
 SomeType {
     simpleKey string | number | boolean
@@ -79,8 +80,28 @@ SomeDotComposedType {
 SomeTypeWithOptionalKeys {
     requiredKey string | number | boolean
     optionalKey? string | number | boolean
-    anotherOptionalKey? string | number | boolean | undefined
+    anotherOptionalKey string | number | boolean | undefined
 }
+
+SomeGenericType<T> {
+    key T
+}
+
+SomeImplementedType = SomeGenericType<string>
+SomeOtherImplementedType = SomeGenericType<SomeType>
+
+
+
+// calls
+getSomething(InputGetSomething): ResponseGetSomething
+setSomething(InputSetSomething): ResponseSetSomething
+netSomething(InputNetSomething): ResponseNetSomething
+
+getSomethingWithNoInput(): ResponseGetSomething
+setSomethingWithNoResponse(InputSetSomething): undefined
+getSomethingWithInlineInput({
+    someKey primitive
+}): ResponseGetSomething
 ```
 
 
