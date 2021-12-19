@@ -2,6 +2,7 @@
     // #region internal
     import {
         TOKENS,
+        Token,
 
         singleSigns,
     } from './data';
@@ -22,15 +23,17 @@ class DataQLParser {
     }
 
 
-    public parse() {
+    private parseTokens() {
         const characters = this.value.split('');
-        const tokens = [];
+        const tokens: Token[] = [];
 
         for (const character of characters) {
             const singleSign = singleSigns[character];
 
             if (singleSign) {
-                const token = TOKENS[singleSign];
+                const token: Token = {
+                    type: singleSign,
+                };
                 tokens.push(token);
                 continue;
             }
@@ -41,9 +44,21 @@ class DataQLParser {
                 case '\t':
                     continue;
                 default:
+                    const token: Token = {
+                        type: TOKENS.IDENTIFIER,
+                        value: character,
+                    };
+                    tokens.push(token);
                     break;
             }
         }
+
+        return tokens;
+    }
+
+
+    public parse() {
+        const tokens = this.parseTokens();
     }
 }
 // #endregion module

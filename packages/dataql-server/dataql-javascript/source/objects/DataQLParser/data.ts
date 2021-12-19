@@ -52,6 +52,14 @@ export enum TOKENS {
     LEFT_ANGLE, RIGHT_ANGLE,
     COMMA, DOT, COLON, QUESTION_MARK,
     AND, OR, EQUAL,
+    IDENTIFIER,
+}
+
+export type Token = {
+    type: number;
+} | {
+    type: TOKENS.IDENTIFIER;
+    value: string;
 }
 
 export const reservedKeywords = [
@@ -62,21 +70,21 @@ export const reservedKeywords = [
     'undefined',
 ];
 
-export const singleSigns = {
-    '(': 'LEFT_PARANTHESIS',
-    ')': 'RIGHT_PARANTHESIS',
-    '[': 'LEFT_BRACKET',
-    ']': 'RIGHT_BRACKET',
-    '{': 'LEFT_BRACE',
-    '}': 'RIGHT_BRACE',
-    '<': 'LEFT_ANGLE',
-    '>': 'RIGHT_ANGLE',
-    ',': 'COMMA',
-    '.': 'DOT',
-    ':': 'COLON',
-    '?': 'QUESTION_MARK',
-    '&': 'AND',
-    '|': 'OR',
-    '=': 'EQUAL',
+export const singleSigns: Record<string, Exclude<TOKENS, TOKENS.IDENTIFIER>> = {
+    '(': TOKENS.LEFT_PARANTHESIS,
+    ')': TOKENS.RIGHT_PARANTHESIS,
+    '[': TOKENS.LEFT_BRACKET,
+    ']': TOKENS.RIGHT_BRACKET,
+    '{': TOKENS.LEFT_BRACE,
+    '}': TOKENS.RIGHT_BRACE,
+    '<': TOKENS.LEFT_ANGLE,
+    '>': TOKENS.RIGHT_ANGLE,
+    ',': TOKENS.COMMA,
+    '.': TOKENS.DOT,
+    ':': TOKENS.COLON,
+    '?': TOKENS.QUESTION_MARK,
+    '&': TOKENS.AND,
+    '|': TOKENS.OR,
+    '=': TOKENS.EQUAL,
 };
 // #endregion module
