@@ -34,7 +34,7 @@
 
 ## About
 
-A `dataql` server can be a `gateway` or a `service`. The `gateway` connects multiple `services`. A `service` has `signs` and `resolvers`. The `signs` contain `calls` and `types`. A `call` can be a `get`, a `set`, or a `net`. There is no technical difference between `get`, `set`, and `net`, but differentiating between them provides an well-abstracted access layer for the client: `get` for queries, `set` for mutations, `net` for subscriptions. A `type` is comprised of a `Name`, by convention `PascalCased`, and a record of `key primitive | Type` pairs. A `type` can also be composed from other types using `&` and `|` operators. The `primitives` are `string | number | boolean | undefined`.
+A `dataql` server can be a `gateway` or a `service`. The `gateway` connects multiple `services`. A `service` has `signs` and `resolvers`. The `signs` contain `calls` and `types`. A `call` can be a `get`, a `set`, or a `net`. There is no technical difference between `get`, `set`, and `net`, but differentiating between them provides an well-abstracted access layer for the client: `get` for queries, `set` for mutations, `net` for subscriptions. A `type` is comprised of a `Name`, by convention `PascalCased`, and a record of `key primitive | Type` pairs. A `type` can also be composed from other types using `&`, for union, and `|`, for disunion, operators. The `primitives` are `string | number | boolean | void`.
 
 
 ``` dataql
@@ -80,7 +80,7 @@ SomeDotComposedType {
 SomeTypeWithOptionalKeys {
     requiredKey string | number | boolean
     optionalKey? string | number | boolean
-    anotherOptionalKey string | number | boolean | undefined
+    anotherOptionalKey string | number | boolean | void
 }
 
 SomeGenericType<T> {
@@ -98,7 +98,7 @@ setSomething(InputSetSomething): ResponseSetSomething
 netSomething(InputNetSomething): ResponseNetSomething
 
 getSomethingWithNoInput(): ResponseGetSomething
-setSomethingWithNoResponse(InputSetSomething): undefined
+setSomethingWithNoResponse(InputSetSomething): void
 getSomethingWithInlineInput({
     someKey primitive
 }): ResponseGetSomething
