@@ -104,6 +104,118 @@ getSomethingWithInlineInput({
 }): ResponseGetSomething
 ```
 
+The `resolvers` are functions which receive `input` and `context` arguments.
+
+
+``` typescript
+const resolvers = {
+    someResolver: async (
+        input: any,
+        context: any,
+    ) => {
+        const result = {
+            // data
+        };
+
+        return result;
+    },
+};
+```
+
+
+A simple `dataql service` example
+
+``` typescript
+import express, {
+    Request,
+    Response,
+} from 'express';
+import {
+    generateService,
+} from '@plurid/dataql-server';
+
+
+
+interface DataQLContext {
+    request: Request;
+    response: Response;
+}
+
+const main = async () => {
+    const application = express();
+
+    await generateService(
+        application,
+        {
+            signs: `
+                getProduct(InputGetProduct): ResponseGetProduct
+                setProduct(InputSetProduct): ResponseGetProduct
+
+                Product {
+                    id: string
+                    name: string
+                    price: number
+                }
+
+                InputGetProduct = From<
+                    Product,
+                    id | name
+                >
+
+                InputSetProduct = From<
+                    Product,
+                    name? | price?
+                >
+
+                ResponseGetProduct = Product
+            `,
+            resolvers: {
+                getProduct: async (
+                    input: { id: string; name: string; },
+                    context: DataQLContext,
+                ) => {
+                    return {
+                        id: 'one',
+                        name: 'product',
+                        price: 100,
+                    };
+                },
+                setProduct: async (
+                    input: { name?: string; price?: string; },
+                    context: DataQLContext,
+                ) => {
+                    const {
+                        name,
+                        price,
+                    } = input;
+
+                    return {
+                        id: 'one',
+                        name: name || 'product',
+                        price: price || 100,
+                    };
+                },
+            },
+            context: async (
+                request,
+                response,
+            ) => {
+                return {
+                    request,
+                    response,
+                };
+            }
+        },
+    );
+
+    app.listen(55443, () => {
+        console.log('dataql service on 55443');
+    });
+}
+
+main();
+```
+
 
 
 ## Packages
