@@ -34,7 +34,54 @@
 
 ## About
 
+A `dataql` server can be a `gateway` or a `service`. The `gateway` connects multiple `services`. A `service` has `signs` and `resolvers`. The `signs` contain `calls` and `types`. A `call` can be a `get`, a `set`, or a `net`. There is no technical difference between `get`, `set`, and `net`, but differentiating between them provides an well-abstracted access layer for the client: `get` for queries, `set` for mutations, `net` for subscriptions. A `type` is comprised of a `Name`, by convention `PascalCased`, and a record of `key primitive | Type` pairs. A `type` can also be composed from other types using `&` and `|` operators. The `primitives` are `string | number | boolean | undefined`.
 
+
+``` dataql
+// signs for an example service
+
+// simple call
+getSomething(InputSomething): ResponseSomething
+
+// with input and response types
+InputSomething {
+    someKey string | number | boolean
+}
+
+ResponseSomething {
+    someOtherKey string | number | boolean
+}
+
+
+// types
+SomeType {
+    simpleKey string | number | boolean
+    nestedKey {
+        nestedNestedKey string | number | boolean
+    }
+}
+
+SomeComposedType = SomeType & {
+    anotherKey string | number | boolean
+}
+
+SomeDisjoinedType = {
+    aKey string | number | boolean
+} | {
+    anotherKey string | number | boolean
+}
+
+SomeDotComposedType {
+    someKey string | number | boolean
+    someOtherKey SomeComposedType.anotherKey
+}
+
+SomeTypeWithOptionalKeys {
+    requiredKey string | number | boolean
+    optionalKey? string | number | boolean
+    anotherOptionalKey? string | number | boolean | undefined
+}
+```
 
 
 
