@@ -11,7 +11,32 @@ class DataQLParser {
 
 
     public parse() {
+        const characters = this.value.split('');
 
+        for (const character of characters) {
+            switch (character) {
+                case '(':
+                    break;
+                case ':':
+                    break;
+                case '{':
+                    break;
+                case '=':
+                    break;
+                case '<':
+                    break;
+                case '&':
+                    break;
+                case '|':
+                    break;
+                case ' ':
+                case '\n':
+                case '\t':
+                    continue;
+                default:
+                    break;
+            }
+        }
     }
 }
 // #endregion module
